@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "a5a189e8-4a29-4b7e-a8ea-50f8bcdf84ee",
+		"name": "Koinx assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24501323"
+	},
+	"item": [
+		{
+			"name": "Test the /transaction `POST` route",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var schema = {\r",
+							"    \"$schema\": \"https://json-schema.org/draft/2019-09/schema\",\r",
+							"    \"$id\": \"http://example.com/example.json\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"default\": {},\r",
+							"    \"title\": \"Root Schema\",\r",
+							"    \"required\": [\r",
+							"        \"id\",\r",
+							"        \"created_at\",\r",
+							"        \"sentCoin\",\r",
+							"        \"receivedCoin\",\r",
+							"        \"sentCoinAmount\",\r",
+							"        \"receivedCoinAmount\"\r",
+							"    ],\r",
+							"    \"properties\": {\r",
+							"        \"id\": {\r",
+							"            \"type\": \"integer\",\r",
+							"            \"default\": 0,\r",
+							"            \"title\": \"The id Schema\",\r",
+							"            \"examples\": [\r",
+							"                118\r",
+							"            ]\r",
+							"        },\r",
+							"        \"created_at\": {\r",
+							"            \"type\": \"integer\",\r",
+							"            \"default\": 0,\r",
+							"            \"title\": \"The created_at Schema\",\r",
+							"            \"examples\": [\r",
+							"                1675603977093\r",
+							"            ]\r",
+							"        },\r",
+							"        \"sentCoin\": {\r",
+							"            \"type\": \"string\",\r",
+							"            \"default\": \"\",\r",
+							"            \"title\": \"The sentCoin Schema\",\r",
+							"            \"examples\": [\r",
+							"                \"INR\"\r",
+							"            ]\r",
+							"        },\r",
+							"        \"receivedCoin\": {\r",
+							"            \"type\": \"string\",\r",
+							"            \"default\": \"\",\r",
+							"            \"title\": \"The receivedCoin Schema\",\r",
+							"            \"examples\": [\r",
+							"                \"USDT\"\r",
+							"            ]\r",
+							"        },\r",
+							"        \"sentCoinAmount\": {\r",
+							"            \"type\": \"integer\",\r",
+							"            \"default\": 0,\r",
+							"            \"title\": \"The sentCoinAmount Schema\",\r",
+							"            \"examples\": [\r",
+							"                245\r",
+							"            ]\r",
+							"        },\r",
+							"        \"receivedCoinAmount\": {\r",
+							"            \"type\": \"integer\",\r",
+							"            \"default\": 0,\r",
+							"            \"title\": \"The receivedCoinAmount Schema\",\r",
+							"            \"examples\": [\r",
+							"                482\r",
+							"            ]\r",
+							"        }\r",
+							"    },\r",
+							"    \"examples\": [{\r",
+							"        \"id\": 118,\r",
+							"        \"created_at\": 1675603977093,\r",
+							"        \"sentCoin\": \"INR\",\r",
+							"        \"receivedCoin\": \"USDT\",\r",
+							"        \"sentCoinAmount\": 245,\r",
+							"        \"receivedCoinAmount\": 482\r",
+							"    }]\r",
+							"}\r",
+							"pm.test('Schema validation', function () {\r",
+							"    var result= tv4.validateResult(pm.response.json(),schema);\r",
+							"    if(!result.valid){\r",
+							"        console.log(pm.result);\r",
+							"    }\r",
+							"    pm.expect(result.valid).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Set id\", function () {\r",
+							"    var jsondata=pm.response.json();\r",
+							"    pm.collectionVariables.set(\"id\",jsondata.id);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"coin1\": \"INR\",\r\n\"coin2\": \"USDT\",\r\n\"coin1Amount\": {{$randomInt}},\r\n\"coin2Amount\": {{$randomInt}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/transaction",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test the /transaction `GET` route",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var schema= {\r",
+							"    \"$schema\": \"https://json-schema.org/draft/2019-09/schema\",\r",
+							"    \"$id\": \"http://example.com/example.json\",\r",
+							"    \"type\": \"object\",\r",
+							"    \"default\": {},\r",
+							"    \"title\": \"Root Schema\",\r",
+							"    \"required\": [\r",
+							"        \"id\",\r",
+							"        \"created_at\",\r",
+							"        \"sentCoin\",\r",
+							"        \"receivedCoin\",\r",
+							"        \"sentCoinAmount\",\r",
+							"        \"receivedCoinAmount\",\r",
+							"        \"receivedCoinMarketPrice\"\r",
+							"    ],\r",
+							"    \"properties\": {\r",
+							"        \"id\": {\r",
+							"            \"type\": \"integer\",\r",
+							"            \"default\": 0,\r",
+							"            \"title\": \"The id Schema\",\r",
+							"            \"examples\": [\r",
+							"                137\r",
+							"            ]\r",
+							"        },\r",
+							"        \"created_at\": {\r",
+							"            \"type\": \"integer\",\r",
+							"            \"default\": 0,\r",
+							"            \"title\": \"The created_at Schema\",\r",
+							"            \"examples\": [\r",
+							"                1675605768923\r",
+							"            ]\r",
+							"        },\r",
+							"        \"sentCoin\": {\r",
+							"            \"type\": \"string\",\r",
+							"            \"default\": \"\",\r",
+							"            \"title\": \"The sentCoin Schema\",\r",
+							"            \"examples\": [\r",
+							"                \"INR\"\r",
+							"            ]\r",
+							"        },\r",
+							"        \"receivedCoin\": {\r",
+							"            \"type\": \"string\",\r",
+							"            \"default\": \"\",\r",
+							"            \"title\": \"The receivedCoin Schema\",\r",
+							"            \"examples\": [\r",
+							"                \"USDT\"\r",
+							"            ]\r",
+							"        },\r",
+							"        \"sentCoinAmount\": {\r",
+							"            \"type\": \"integer\",\r",
+							"            \"default\": 0,\r",
+							"            \"title\": \"The sentCoinAmount Schema\",\r",
+							"            \"examples\": [\r",
+							"                263\r",
+							"            ]\r",
+							"        },\r",
+							"        \"receivedCoinAmount\": {\r",
+							"            \"type\": \"integer\",\r",
+							"            \"default\": 0,\r",
+							"            \"title\": \"The receivedCoinAmount Schema\",\r",
+							"            \"examples\": [\r",
+							"                509\r",
+							"            ]\r",
+							"        },\r",
+							"        \"receivedCoinMarketPrice\": {\r",
+							"            \"type\": \"number\",\r",
+							"            \"default\": 0.0,\r",
+							"            \"title\": \"The receivedCoinMarketPrice Schema\",\r",
+							"            \"examples\": [\r",
+							"                0.5166994106090373\r",
+							"            ]\r",
+							"        }\r",
+							"    },\r",
+							"    \"examples\": [{\r",
+							"        \"id\": 137,\r",
+							"        \"created_at\": 1675605768923,\r",
+							"        \"sentCoin\": \"INR\",\r",
+							"        \"receivedCoin\": \"USDT\",\r",
+							"        \"sentCoinAmount\": 263,\r",
+							"        \"receivedCoinAmount\": 509,\r",
+							"        \"receivedCoinMarketPrice\": 0.5166994106090373\r",
+							"    }]\r",
+							"}\r",
+							"\r",
+							"pm.test('Schema validation', function () {\r",
+							"    var result= tv4.validateResult(pm.response.json(),schema);\r",
+							"    if(!result.valid){\r",
+							"        console.log(pm.result);\r",
+							"    }\r",
+							"    pm.expect(result.valid).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test('value of receivedCoinMarketPrice variable',function(){\r",
+							"    var jsondata=pm.response.json();\r",
+							"    var actReceivedCoinMarketPrice=jsondata.receivedCoinMarketPrice;\r",
+							"    var sentCoinAmount=jsondata.sentCoinAmount;\r",
+							"    var receivedCoinAmount=jsondata.receivedCoinAmount;\r",
+							"    var expReceivedCoinMarketPrice=sentCoinAmount/receivedCoinAmount;\r",
+							"\r",
+							"    pm.expect(actReceivedCoinMarketPrice).to.eql(expReceivedCoinMarketPrice);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 10s\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(10000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/transaction/{{id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"transaction",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "{{id}}",
+			"value": ""
+		},
+		{
+			"key": "id",
+			"value": "0"
+		}
+	]
+}
